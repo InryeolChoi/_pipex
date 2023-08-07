@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "pipex_info.h": "c",
-        "errno.h": "c",
-        "info_bonus.h": "c"
-    }
-}
