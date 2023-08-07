@@ -24,7 +24,7 @@ char	**get_path(char **env)
 	return (ft_split(path, ':'));
 }
 
-static void	free_cmd(char **box, int x)
+static void	free_cmd_abs(char **box, int x)
 {
 	int	i;
 
@@ -51,8 +51,8 @@ void	free_tools(t_box *tools)
 	i = 0;
 	free_double(tools->path);
 	while (i < tools->cmd_num)
-		free_double(tools->cmd_org[i++]);
-	free(tools->cmd_org);
-	free_cmd(tools->cmd, tools->cmd_num);
+		free_double(tools->cmd[i++]);
+	free(tools->cmd);
+	free_cmd_abs(tools->cmd_abs, tools->cmd_num);
 	free(tools);
 }

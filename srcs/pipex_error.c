@@ -50,9 +50,9 @@ static void	exit_error_2(int reason, t_box *tools)
 static void	exit_error_3(int reason, t_box *tools)
 {
 	if (reason == EXEC_ERROR_1)
-		perror(*tools->cmd_org1);
+		perror(*tools->cmd1);
 	else if (reason == EXEC_ERROR_2)
-		perror(*tools->cmd_org2);
+		perror(*tools->cmd2);
 	free_tools(tools);
 	exit(1);
 }

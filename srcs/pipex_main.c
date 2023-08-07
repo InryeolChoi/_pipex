@@ -24,7 +24,7 @@ static char	**get_path(char **env)
 	return (ft_split(path, ':'));
 }
 
-static char	*get_cmd(char **path, char *s1)
+static char	*get_cmd_abs(char **path, char *s1)
 {
 	int		i;
 	int		result;
@@ -54,12 +54,12 @@ static void	parse_env(t_box *tools, char **av, char **env)
 	tools->path = get_path(env);
 	if (tools->path == NULL)
 		exit_error(WRONG_PATH, tools);
-	tools->cmd_org1 = ft_split(av[2], ' ');
-	tools->cmd_org2 = ft_split(av[3], ' ');
-	if (!(tools->cmd_org1) || !(tools->cmd_org2))
+	tools->cmd1 = ft_split(av[2], ' ');
+	tools->cmd2 = ft_split(av[3], ' ');
+	if (!(tools->cmd1) || !(tools->cmd2))
 		exit_error(WRONG_SPLIT, tools);
-	tools->cmd1 = get_cmd(tools->path, tools->cmd_org1[0]);
-	tools->cmd2 = get_cmd(tools->path, tools->cmd_org2[0]);
+	tools->cmd_abs1 = get_cmd_abs(tools->path, tools->cmd1[0]);
+	tools->cmd_abs2 = get_cmd_abs(tools->path, tools->cmd2[0]);
 }
 
 int	main(int ac, char **av, char **env)

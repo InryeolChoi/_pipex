@@ -31,9 +31,9 @@ int	put_error(void)
 void	free_tools(t_box *tools)
 {
 	free_double(tools->path);
-	free_double(tools->cmd_org1);
-	free_double(tools->cmd_org2);
-	free(tools->cmd1);
-	free(tools->cmd2);
+	free_double(tools->cmd1);
+	free_double(tools->cmd2);
+	free(tools->cmd_abs1);
+	free(tools->cmd_abs2);
 	free(tools);
 }

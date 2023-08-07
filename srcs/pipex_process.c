@@ -31,9 +31,9 @@ static void	first_child(t_box *tools)
 	if (dup2(tools->pipe[WRITE], STDOUT_FILENO) == -1)
 		exit_error(DUP2_FAIL, tools);
 	close_pipe(tools);
-	if (!tools->cmd1)
+	if (!tools->cmd_abs1)
 		exit_error(EXEC_ERROR_1, tools);
-	else if (execve(tools->cmd1, tools->cmd_org1, tools->env) < 0)
+	else if (execve(tools->cmd_abs1, tools->cmd1, tools->env) < 0)
 		exit_error(EXEC_ERROR_1, tools);
 }
 
@@ -46,11 +46,11 @@ static void	second_child(t_box *tools)
 		exit_error(DUP2_FAIL, tools);
 	if (close(tools->outfile_fd) == -1)
 		exit_error(CLOSE_FAIL, tools);
-	if (access(tools->cmd2, X_OK) == -1)
+	if (access(tools->cmd_abs2, X_OK) == -1)
 		exit_error(EXEC_ERROR_2, tools);
-	if (!tools->cmd2)
+	if (!tools->cmd_abs2)
 		exit_error(EXEC_ERROR_2, tools);
-	else if (execve(tools->cmd2, tools->cmd_org2, tools->env) < 0)
+	else if (execve(tools->cmd_abs2, tools->cmd2, tools->env) < 0)
 		exit_error(EXEC_ERROR_2, tools);
 }
 

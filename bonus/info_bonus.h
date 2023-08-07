@@ -44,8 +44,8 @@ typedef struct s_box
 	char	*outfile;
 	char	**env;
 	char	**path;
-	char	***cmd_org;
-	char	**cmd;
+	char	***cmd;
+	char	**cmd_abs;
 	int		infile_fd;
 	int		outfile_fd;
 	int		pipe[2];
@@ -57,6 +57,7 @@ typedef struct s_box
 void	free_double(char **box);
 void	free_tools(t_box *tools);
 void	exit_cmd(int r, t_box *tools);
+void	execve_fail(char *cmd, t_box *tools);
 char	**get_path(char **env);
 void	set_process(t_box *tools);
 void	create_pipe(t_box *tools);

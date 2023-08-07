@@ -50,8 +50,15 @@ void	exit_cmd(int r, t_box *tools)
 		exit_cmd1(r);
 	else if (r == PIPE_ERROR || r == FORK_ERROR || r == NO_FILE)
 		exit_cmd2(r, tools);
-	else if (r == DUP2_FAIL || r == CLOSE_FAIL || r == EXEC_FAIL)
+	else if (r == DUP2_FAIL || r == CLOSE_FAIL)
 		exit_cmd3(tools);
 	else if (r == LINE_STOP)
 		exit(1);
+}
+
+void	execve_fail(char *cmd, t_box *tools)
+{
+	perror(cmd);
+	free_tools(tools);
+	exit(1);
 }

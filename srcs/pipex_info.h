@@ -42,10 +42,10 @@ typedef struct s_box
 	char	**path;
 	char	*infile;
 	char	*outfile;
-	char	**cmd_org1;
-	char	**cmd_org2;
-	char	*cmd1;
-	char	*cmd2;
+	char	**cmd1;
+	char	**cmd2;
+	char	*cmd_abs1;
+	char	*cmd_abs2;
 	int		infile_fd;
 	int		outfile_fd;
 	int		pipe[2];

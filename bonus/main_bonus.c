@@ -35,13 +35,13 @@ static void	set_tools(int ac, char **av, char **env, t_box *tools)
 		exit_cmd(WRONG_SPLIT, tools);
 }
 
-static void	set_cmd_orgs(char **av, t_box *tools)
+static void	set_cmd(char **av, t_box *tools)
 {
 	int	i;
 	int	x;
 
-	tools->cmd_org = (char ***)malloc(tools->cmd_num * sizeof(char **));
-	if (!tools->cmd_org)
+	tools->cmd = (char ***)malloc(tools->cmd_num * sizeof(char **));
+	if (!tools->cmd)
 		exit_cmd(MALLOC_FAIL, tools);
 	i = 0;
 	if (tools->flag == 1)
@@ -50,8 +50,8 @@ static void	set_cmd_orgs(char **av, t_box *tools)
 		x = 2;
 	while (i < tools->cmd_num)
 	{
-		tools->cmd_org[i] = ft_split(av[x++], ' ');
-		if (!tools->cmd_org[i])
+		tools->cmd[i] = ft_split(av[x++], ' ');
+		if (!tools->cmd[i])
 			exit_cmd(WRONG_SPLIT, tools);
 		i++;
 	}
@@ -82,17 +82,17 @@ static char	*join_check(char **path, char *s1)
 	return (NULL);
 }
 
-static void	set_cmds(t_box *tools)
+static void	set_cmd_abs(t_box *tools)
 {
 	int	i;
 
-	tools->cmd = (char **)malloc(tools->cmd_num * sizeof(char *));
-	if (!tools->cmd)
+	tools->cmd_abs = (char **)malloc(tools->cmd_num * sizeof(char *));
+	if (!tools->cmd_abs)
 		exit_cmd(MALLOC_FAIL, tools);
 	i = 0;
 	while (i < tools->cmd_num)
 	{
-		tools->cmd[i] = join_check(tools->path, tools->cmd_org[i][0]);
+		tools->cmd_abs[i] = join_check(tools->path, tools->cmd[i][0]);
 		i++;
 	}
 }
@@ -110,8 +110,8 @@ int	main(int ac, char **av, char **env)
 	if (!tools)
 		return (1);
 	set_tools(ac, av, env, tools);
-	set_cmd_orgs(av, tools);
-	set_cmds(tools);
+	set_cmd(av, tools);
+	set_cmd_abs(tools);
 	if (tools->flag == 0)
 	{
 		tools->outfile_fd = open(tools->outfile, \

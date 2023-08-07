@@ -55,6 +55,6 @@ void	child(t_box *tools, int i)
 		last_child(tools);
 	else
 		middle_child(tools);
-	if (execve(tools->cmd[i], tools->cmd_org[i], tools->env) == -1)
-		exit_cmd(EXEC_FAIL, tools);
+	if (execve(tools->cmd_abs[i], tools->cmd[i], tools->env) == -1)
+		execve_fail(tools->cmd[i][0], tools);
 }
