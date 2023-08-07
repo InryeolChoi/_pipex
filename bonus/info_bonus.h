@@ -35,7 +35,7 @@
 # define LINE_STOP 107
 # define DUP2_FAIL 108
 # define CLOSE_FAIL 109
-# define HEREDOC_FILE "/var/tmp/infile_for_header"
+# define HEREDOC_FILE "./infile_for_header"
 
 typedef struct s_box
 {

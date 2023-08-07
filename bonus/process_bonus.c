@@ -18,6 +18,31 @@ void	create_pipe(t_box *tools)
 		exit_cmd(PIPE_ERROR, tools);
 }
 
+static void heredoc_start(t_box *tools)
+{
+	size_t	lim_len;
+	char	*str;
+
+	tools->infile_fd = open(HEREDOC_FILE, O_WRONLY | O_CREAT, 0644);
+	if (tools->infile_fd == -1)
+		exit_cmd(NO_FILE, tools);
+	lim_len = ft_strlen(tools->limiter);
+	while (1)
+	{
+		write(1, "heredoc> ", 9);
+		str = get_next_line(0);
+		if (!str)
+			break ;
+		if (ft_strncmp(tools->limiter, str, lim_len) == 0 && \
+				ft_strlen(str) == lim_len + 1)
+			break ;
+		write(tools->infile_fd, str, ft_strlen(str));
+		free(str);
+	}
+	close(tools->infile_fd);
+	tools->infile_fd = open(HEREDOC_FILE, O_RDONLY, 0644);
+}
+
 static void	parent(t_box *tools)
 {
 	if (close(tools->pipe[WRITE]) == -1)
@@ -26,13 +51,6 @@ static void	parent(t_box *tools)
 		exit_cmd(DUP2_FAIL, tools);
 	if (close(tools->pipe[READ]) == -1)
 		exit_cmd(CLOSE_FAIL, tools);
-}
-
-void	heredoc_start(t_box *tools)
-{
-	tools->infile_fd = open(HEREDOC_FILE, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (tools->infile_fd == -1)
-		exit_cmd(NO_FILE, tools);
 }
 
 void	set_process(t_box *tools)

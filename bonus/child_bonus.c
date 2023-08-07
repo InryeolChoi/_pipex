@@ -12,26 +12,6 @@
 
 #include "info_bonus.h"
 
-static void	heredoc_exec(t_box *tools)
-{
-	size_t	lim_len;
-	char	*str;
-
-	lim_len = ft_strlen(tools->limiter);
-	while (1)
-	{
-		write(1, "heredoc> ", 9);
-		str = get_next_line(0);
-		if (!str)
-			break ;
-		if (ft_strncmp(tools->limiter, str, lim_len) == 0 && \
-				ft_strlen(str) == lim_len + 1)
-			break ;
-		write(tools->infile_fd, str, ft_strlen(str));
-		free(str);
-	}
-}
-
 static void	zero_child(t_box *tools)
 {
 	if (tools->infile_fd == -1)
@@ -70,11 +50,7 @@ void	child(t_box *tools, int i)
 {
 	close(tools->pipe[READ]);
 	if (i == 0)
-	{
-		if (tools->flag == 1)
-			heredoc_exec(tools);
 		zero_child(tools);
-	}
 	else if (i == tools->cmd_num - 1)
 		last_child(tools);
 	else
