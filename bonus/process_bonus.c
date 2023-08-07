@@ -6,7 +6,7 @@
 /*   By: inchoi <inchoi@student.42Seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 14:52:02 by inchoi            #+#    #+#             */
-/*   Updated: 2023/08/04 14:54:19 by inchoi           ###   ########.fr       */
+/*   Updated: 2023/08/07 16:59:34 by inchoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	create_pipe(t_box *tools)
 		exit_cmd(PIPE_ERROR, tools);
 }
 
-static void heredoc_start(t_box *tools)
+static void	heredoc_start(t_box *tools)
 {
 	size_t	lim_len;
 	char	*str;
