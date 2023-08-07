@@ -23,7 +23,7 @@ static void	heredoc_start(t_box *tools)
 	size_t	lim_len;
 	char	*str;
 
-	tools->infile_fd = open(HEREDOC_FILE, O_WRONLY | O_CREAT, 0644);
+	tools->infile_fd = open(HEREDOC_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (tools->infile_fd == -1)
 		exit_cmd(NO_FILE, tools);
 	lim_len = ft_strlen(tools->limiter);
@@ -41,6 +41,8 @@ static void	heredoc_start(t_box *tools)
 	}
 	close(tools->infile_fd);
 	tools->infile_fd = open(HEREDOC_FILE, O_RDONLY, 0644);
+	if (tools->infile_fd == -1)
+		exit_cmd(NO_FILE, tools);
 }
 
 static void	parent(t_box *tools)
