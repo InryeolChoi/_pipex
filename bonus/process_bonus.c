@@ -28,12 +28,21 @@ static void	parent(t_box *tools)
 		exit_cmd(CLOSE_FAIL, tools);
 }
 
+void	heredoc_start(t_box *tools)
+{
+	tools->infile_fd = open(HEREDOC_FILE, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (tools->infile_fd == -1)
+		exit_cmd(NO_FILE, tools);
+}
+
 void	set_process(t_box *tools)
 {
 	int	i;
 	int	status;
 
 	i = 0;
+	if (tools->flag == 1)
+		heredoc_start(tools);
 	while (i < tools->cmd_num)
 	{
 		create_pipe(tools);
